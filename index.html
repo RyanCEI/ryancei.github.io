@@ -4,16 +4,29 @@
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
         <style>
+            #sitelink {
+                position:fixed;
+                top:20;
+                left:0;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size:48px;
+                color:black;
+                font-weight:bolder;
+            }
         </style>
     </head>
 <body>
 <div style='text-align:center;'>
     <img src="vpflyer.png" alt="" id="bg">
+    <a href="https://vinylpalace.com" id="sitelink">VinylPalace.com</a>
 </div>
 <script>
     $(window).on('load', function() {    
         var theWindow        = $(window),
             $bg              = $("#bg"),
+            $link            = $("#sitelink"),
+            linkWidth        = $link.width(),
+            linkOffset       = linkWidth / 2,
             bgWidth = $bg.width(),
             bgHeight = $bg.height(),
             aspectRatio      = bgWidth / bgHeight;
@@ -21,13 +34,15 @@
         function resizeBg() {
             var winWidth = theWindow.width();
             var winHeight = theWindow.height();
-
+            var center = winWidth / 2;
             console.log(winWidth + 'x' + winHeight + '  -  ' + bgWidth + 'x' + bgHeight);
-
-
+            console.log('linkwidth=' + linkWidth);
+            var leftPos = center - linkOffset;
+            var topPos = winHeight - 55;
+            $link.offset({left:leftPos, top:topPos});
             if (winHeight < bgHeight) {
                 $bg.height(winHeight);
-                $bg.width(winHeight * aspectRation);
+                $bg.width(winHeight * aspectRatio);
                 console.log('setting winHeight');
             }
             else {
